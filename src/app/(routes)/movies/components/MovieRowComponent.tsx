@@ -15,7 +15,6 @@ interface MovieRowComponentProps {
 const MovieRowComponent = ({ movie, sessions }: MovieRowComponentProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isModalVisible, setIsModalVisible] = useState(false)
-  // const [selectedSession, setSelectedSession] = useState<Session | null>(null)
 
   const { setSelectedSession } = useContext(SessionContext)
 
