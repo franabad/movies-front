@@ -6,6 +6,7 @@ import { useContext, useState } from 'react'
 import TicketsModalComponent from './TicketsModalComponent'
 import { TicketsContext } from '@/context/tickets'
 import { SessionContext } from '@/context/session'
+import { SeatContext } from '@/context/selectedSeats'
 
 interface MovieRowComponentProps {
   movie: Movie
@@ -15,7 +16,7 @@ interface MovieRowComponentProps {
 const MovieRowComponent = ({ movie, sessions }: MovieRowComponentProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isModalVisible, setIsModalVisible] = useState(false)
-  // const [selectedSession, setSelectedSession] = useState<Session | null>(null)
+  const { resetSeats } = useContext(SeatContext)
 
   const { setSelectedSession } = useContext(SessionContext)
 
@@ -37,6 +38,7 @@ const MovieRowComponent = ({ movie, sessions }: MovieRowComponentProps) => {
     setSelectedSession(session)
     handleModalState()
     resetTickets()
+    resetSeats()
   }
 
   return (
