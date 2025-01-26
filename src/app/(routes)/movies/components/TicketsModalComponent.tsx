@@ -5,9 +5,10 @@ import React, { useContext, useState } from 'react'
 import { TicketPlus, TicketMinus } from 'lucide-react'
 import { Movie } from '@/app/types/movie'
 import AnimatedButtonComponent from './AnimatedButtonComponent'
-import { Dialog, DialogContent, DialogHeader, DialogOverlay, DialogTitle } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogOverlay, DialogTitle } from '@/components/ui/dialog'
 import SeatSelectionModalComponent from './SeatSelectionModalComponent'
 import { TicketsContext } from '@/context/tickets'
+import { SeatContext } from '@/context/selectedSeats'
 
 interface TicketsModalProps {
   isOpen: boolean;
@@ -19,6 +20,8 @@ const TicketsModalComponent = ({ isOpen, handleModal, movie }: TicketsModalProps
   const { prices, tickets, addTickets, removeTickets } = useContext(TicketsContext)
   const [isSeatSelectionOpen, setIsSeatSelectionOpen] = useState(false)
 
+  const { resetSeats } = useContext(SeatContext)
+
   const [action, setAction] = useState<'forward' | 'backward' | boolean>(false)
 
   const handleReturn = () => {
@@ -26,6 +29,7 @@ const TicketsModalComponent = ({ isOpen, handleModal, movie }: TicketsModalProps
     setTimeout(() => {
       setIsSeatSelectionOpen(!isSeatSelectionOpen)
     }, 500)
+    resetSeats()
   }
 
   const handleContinue = () => {
@@ -46,10 +50,11 @@ const TicketsModalComponent = ({ isOpen, handleModal, movie }: TicketsModalProps
             action === 'forward'
               ? 'animate-slide-out-to-right'
               : 'animate-slide-in-from-right'}
-          className="bg-[#050515] pr-8 py-8 flex flex-col gap-y-5 w-[650px] select-none justify-center items-center border rounded-[32px]"
+          className="pr-8 py-8 flex flex-col gap-y-5 w-[650px] select-none justify-center items-center border rounded-[32px]"
         >
           <DialogHeader>
-            <DialogTitle className='font-normal tracking-[0.2em] mb-5'>Selecciona tus entradas</DialogTitle>
+            <DialogTitle className='font-normal tracking-[0.2em] mb-5'>Select your tickets</DialogTitle>
+            <DialogDescription /> {/* Empty component to avoid warning */}
           </DialogHeader>
           <div className="grid grid-cols-[1fr_1fr_1fr] grid-rows-[auto_repeat(4,_1fr)] gap-x-[29px] gap-y-[41px] w-full justify-end">
             <div></div>
@@ -85,7 +90,7 @@ const TicketsModalComponent = ({ isOpen, handleModal, movie }: TicketsModalProps
             ))}
           </div>
           <img src={movie.coverUrl} alt="Poster de la película" width={500} height={500} className="absolute transform translate-x-[160%] [mask-image:linear-gradient(black_80%,transparent)] rounded" />
-          <AnimatedButtonComponent onClick={handleContinue} />
+          <AnimatedButtonComponent onClick={handleContinue}>Next</AnimatedButtonComponent>
         </DialogContent>
       )}
 
