@@ -45,6 +45,7 @@ const TicketsModalComponent = ({ isOpen, handleModal, movie }: TicketsModalProps
       {/* Primer modal */}
       {!isSeatSelectionOpen && (
         <DialogContent
+          center={true}
           customCloseAnimation={action}
           animation={
             action === 'forward'
