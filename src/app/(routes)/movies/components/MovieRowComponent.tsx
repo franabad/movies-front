@@ -10,10 +10,11 @@ import { SeatContext } from '@/context/selectedSeats'
 
 interface MovieRowComponentProps {
   movie: Movie
-  sessions: Session[]
+  sessions: Session[],
+  lastMovieId: number
 }
 
-const MovieRowComponent = ({ movie, sessions }: MovieRowComponentProps) => {
+const MovieRowComponent = ({ movie, sessions, lastMovieId }: MovieRowComponentProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isModalVisible, setIsModalVisible] = useState(false)
   const { resetSeats } = useContext(SeatContext)
@@ -43,7 +44,8 @@ const MovieRowComponent = ({ movie, sessions }: MovieRowComponentProps) => {
 
   return (
     <>
-      <div className='grid grid-flow-col grid-cols-[270px_minmax(900px,_1fr)] gap-x-12'>
+      <div className={`grid grid-flow-col grid-cols-[270px_minmax(900px,_1fr)] pb-3 gap-x-12 
+        ${lastMovieId === movie.id ? '' : 'border-b border-b-gray-600'}`}>
         <div className='flex flex-col items-start'>
           <img className="[mask-image:linear-gradient(black_80%,transparent)]" src={movie.coverUrl} alt='Poster de la pelicula' width={270} height={270} style={{ viewTransitionName: `poster-${movie.id}` }} />
           <h2 className='text-lg font-bold mt-2'>
@@ -52,10 +54,10 @@ const MovieRowComponent = ({ movie, sessions }: MovieRowComponentProps) => {
           <p>{movie.duration} minutes</p>
         </div>
         <div>
-          <ul className='flex flex-col gap-y-10'>
+          <ul className='flex flex-col gap-y-5'>
             {sessions.map((session: Session) => (
               <li key={session.id}>
-                <button onClick={() => handleModal(session)} className='border rounded hover:bg-red-500 px-4 py-2'>{session.time}</button>
+                <button onClick={() => handleModal(session)} className='border rounded hover:bg-blue-500/50 transition-all duration-200 ease-in-out px-4 py-2'>{session.time}</button>
               </li>
             ))}
           </ul>
