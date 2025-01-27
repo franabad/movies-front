@@ -6,6 +6,7 @@ import { Montserrat, Open_Sans } from 'next/font/google'
 import { TicketsProvider } from '@/context/tickets'
 import { SessionProvider } from '@/context/session'
 import { SeatProvider } from '@/context/selectedSeats'
+import NavBarComponent from './components/NavBarComponent'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -44,6 +45,7 @@ export default function RootLayout({
           <meta name="viewport" content="width=device-width, initial-scale=1" />
         </head> */}
             <body className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} ${openSans.variable} dark font-opensans`}>
+              <NavBarComponent />
               {children}
             </body>
           </html>

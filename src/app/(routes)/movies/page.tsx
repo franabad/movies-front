@@ -1,4 +1,3 @@
-import NavBarComponent from '@/app/components/NavBarComponent'
 import SessionsListComponent from '@/app/(routes)/movies/components/SessionsListComponent'
 
 async function fetchMovies() {
@@ -13,7 +12,6 @@ export default async function Home() {
 
   return (
     <div className="items-center justify-items-center max-h-screen flex flex-col">
-      <NavBarComponent />
       <SessionsListComponent movies={movies} />
     </div>
 
