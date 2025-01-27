@@ -3,7 +3,7 @@
 import { Movie } from '@/app/types/movie'
 import { Session } from '@/app/types/session'
 import { useContext, useState } from 'react'
-import TicketsModalComponent from './TicketsModalComponent'
+import ModalComponent from './ModalComponent'
 import { TicketsContext } from '@/context/tickets'
 import { SessionContext } from '@/context/session'
 import { SeatContext } from '@/context/selectedSeats'
@@ -64,7 +64,7 @@ const MovieRowComponent = ({ movie, sessions, lastMovieId }: MovieRowComponentPr
         </div>
       </div>
       {isModalVisible &&
-        <TicketsModalComponent isOpen={isModalOpen} handleModal={handleModalState} movie={movie} />
+        <ModalComponent isOpen={isModalOpen} handleModal={handleModalState} movie={movie} />
       }
     </>
   )

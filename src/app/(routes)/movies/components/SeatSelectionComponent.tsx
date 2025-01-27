@@ -36,7 +36,7 @@ interface CandidateSeat extends Seat {
   sectionCenterColumn: number;
 }
 
-const SeatSelectionModalComponent = ({ action, handleReturn }: SeatSelectionModalProps) => {
+const SeatSelectionComponent = ({ action, handleReturn }: SeatSelectionModalProps) => {
   const { tickets } = useContext(TicketsContext)
   const { selectedSession } = useContext(SessionContext)
   const { selectedSeats, setSelectedSeats } = useContext(SeatContext)
@@ -280,4 +280,4 @@ const SeatSelectionModalComponent = ({ action, handleReturn }: SeatSelectionModa
   )
 }
 
-export default SeatSelectionModalComponent
+export default SeatSelectionComponent
