@@ -19,7 +19,7 @@ type LayoutSection = {
   start_row?: number,
   aisle?: { start: number, end: number }[]
 }
-type Cinema = {
+export type Cinema = {
   id: number,
   name: string,
   capacity: number,
@@ -253,19 +253,19 @@ const SeatSelectionComponent = ({ action, handleReturn }: SeatSelectionModalProp
   return (
     <DialogContent
       center={true}
-      customCloseAnimation={true}
+      customAnimation={true}
       animation={
         action === 'backward'
           ? 'animate-slide-out-to-left'
           : 'animate-slide-in-from-left'
       }
-      className="text-white w-auto h-auto select-none flex flex-col justify-around items-center rounded-lg shadow-lg z-50"
+      className="text-white w-auto h-auto select-none flex flex-col justify-around items-center rounded-lg shadow-lg"
     >
       <DialogHeader>
         <DialogTitle>Select your seats</DialogTitle>
         <DialogDescription /> {/* Empty component to avoid warning */}
       </DialogHeader>
-      <section className="relative flex flex-col mt-5 px-12 py-4 bg-transparent items-center justify-center">
+      <section className="relative flex flex-col mt-5 px-12 py-4 items-center justify-center">
         <div className="absolute -top-4 h-4 w-full bg-white/70 rounded-t-full flex items-center justify-center">
           <p className='font-montserrat tracking-[0.5em] font-semibold text-sm z-50 text-black'>PANTALLA</p>
         </div>

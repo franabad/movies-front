@@ -12,13 +12,13 @@ interface TicketsComponentProps {
   movie: Movie;
 }
 
-const TicketsComponent = ({ action, handleContinue, movie }: TicketsComponentProps) => {
+const TicketsComponent = ({ action, handleContinue }: TicketsComponentProps) => {
   const { prices, tickets, addTickets, removeTickets } = useContext(TicketsContext)
 
   return (
     <DialogContent
       center={true}
-      customCloseAnimation={action}
+      customAnimation={action}
       animation={
         action === 'forward'
           ? 'animate-slide-out-to-right'
@@ -62,7 +62,6 @@ const TicketsComponent = ({ action, handleContinue, movie }: TicketsComponentPro
           </React.Fragment>
         ))}
       </div>
-      <img src={movie.coverUrl} alt="Poster de la película" width={500} height={500} className="absolute transform translate-x-[160%] [mask-image:linear-gradient(black_80%,transparent)] rounded" />
       <AnimatedButtonComponent onClick={handleContinue}>Next</AnimatedButtonComponent>
     </DialogContent>
   )
