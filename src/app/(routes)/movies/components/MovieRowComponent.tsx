@@ -21,7 +21,7 @@ const MovieRowComponent = ({ movie, sessions, lastMovieId }: MovieRowComponentPr
 
   const { setSelectedSession } = useContext(SessionContext)
 
-  const { resetTickets } = useContext(TicketsContext)
+  const { resetTickets, resetTotal } = useContext(TicketsContext)
 
   const handleModalState = () => {
     if (isModalOpen) {
@@ -40,6 +40,7 @@ const MovieRowComponent = ({ movie, sessions, lastMovieId }: MovieRowComponentPr
     handleModalState()
     resetTickets()
     resetSeats()
+    resetTotal()
   }
 
   return (

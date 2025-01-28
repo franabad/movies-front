@@ -7,7 +7,8 @@ import { createContext, useEffect, useState } from 'react'
 interface TicketsContext {
   prices: Price[]
   tickets: { [priceId: number]: number }
-  total: number
+  total: number,
+  resetTotal: () => void
   addTickets: (priceId: number) => void
   removeTickets: (priceId: number) => void
   resetTickets: () => void
@@ -17,6 +18,7 @@ export const TicketsContext = createContext<TicketsContext>({
   prices: [],
   tickets: {},
   total: 0,
+  resetTotal: () => { },
   addTickets: () => { },
   removeTickets: () => { },
   resetTickets: () => { }
@@ -31,6 +33,10 @@ export const TicketsProvider = ({ children }: React.PropsWithChildren) => {
     acc[price.id] = 0
     return acc
   }, {} as { [key: number]: number })
+
+  const resetTotal = () => {
+    setTotal(0)
+  }
 
   useEffect(() => {
     const fetchPrices = async () => {
@@ -90,6 +96,7 @@ export const TicketsProvider = ({ children }: React.PropsWithChildren) => {
     <TicketsContext.Provider value={{
       tickets,
       total,
+      resetTotal,
       prices,
       addTickets,
       removeTickets,
