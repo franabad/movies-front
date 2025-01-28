@@ -4,6 +4,7 @@ import { Dialog, DialogOverlay } from '@/components/ui/dialog'
 import { SeatContext } from '@/context/selectedSeats'
 import TicketsComponent from './TicketsComponent'
 import SeatSelectionComponent from './SeatSelectionComponent'
+import AsideComponent from './AsideComponent'
 
 interface TicketsModalProps {
   isOpen: boolean;
@@ -35,6 +36,7 @@ const ModalComponent = ({ isOpen, handleModal, movie }: TicketsModalProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleModal}>
+      <AsideComponent movie={movie} />
       <DialogOverlay />
 
       {/* Primer modal */}
