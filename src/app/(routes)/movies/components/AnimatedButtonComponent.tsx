@@ -26,7 +26,7 @@ const AnimatedButtonComponent = ({ onClick, children }: AnimatedButtonProps) => 
       </span>
       <ChevronRight
         size={22}
-        className="relative z-10 group-hover:animate-arrow-slide"
+        className="relative group-hover:animate-arrow-slide"
         strokeWidth={1.5}
       />
     </button>
