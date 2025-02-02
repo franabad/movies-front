@@ -37,7 +37,7 @@ const NavBarComponent = () => {
         </ul>
         <div>
           <button className="hover:bg-green-800 transiton-all duration-300 ease-in-out text-[#fff] border border-yellow-300 py-2 px-4 rounded">
-            Sign In
+            <a href='/login'>Sign In</a>
           </button>
         </div>
       </div>
