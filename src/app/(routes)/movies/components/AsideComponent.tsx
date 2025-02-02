@@ -35,22 +35,22 @@ const AsideComponent = ({ movie }: AsideComponentProps) => {
       className='aside h-full'
       animation='animate-aside-slide-in'
     >
-      <DialogHeader>
+      <DialogHeader className='mb-5'>
         <DialogTitle>Information</DialogTitle>
         <DialogDescription>
           Check if the information is correct before continuing with the purchase.
         </DialogDescription>
       </DialogHeader>
-      <div>
-        <img width={200} height={200} src={movie.coverUrl} alt='Poster de la película' className="[mask-image:linear-gradient(black_80%,transparent)]"></img>
-        <div className='flex flex-col gap-y-1'>
-          <p>{movie.title}</p>
+      <div className='flex flex-col justify-between h-[75%]'>
+        <div className='flex flex-col text-sm'>
+          <img width={200} height={200} src={movie.coverUrl} alt='Poster de la película' className="[mask-image:linear-gradient(black_80%,transparent)]"></img>
+          <h1 className='text-base font-montserrat mb-2'>{movie.title}</h1>
           <p>Duration: {movie.duration} minutes</p>
           <p>Theatre: {cinema?.name}</p>
           <p>Date: {selectedSession?.date}</p>
           <p>Time: {selectedSession?.time}</p>
-          <p>Total: {total.toFixed(2)} €</p>
         </div>
+        <p className='font-bold text-2xl font-montserrat'>Total: {total.toFixed(2)} €</p>
       </div>
     </DialogContent>
   )
