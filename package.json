@@ -19,7 +19,8 @@
     "react": "19.0.0-rc-f994737d14-20240522",
     "react-dom": "19.0.0-rc-f994737d14-20240522",
     "shadcn": "^2.1.8",
-    "tailwind-merge": "^2.6.0"
+    "tailwind-merge": "^2.6.0",
+    "temporal-polyfill": "^0.2.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",
