@@ -37,7 +37,7 @@ const ModalComponent = ({ isOpen, handleModal, movie }: TicketsModalProps) => {
 
   return (
     <TicketsProvider>
-      <Dialog open={isOpen} onOpenChange={handleModal} modal={true}>
+      <Dialog open={isOpen} onOpenChange={handleModal}>
         <AsideComponent movie={movie} />
         <DialogOverlay />
 
