@@ -72,7 +72,8 @@ const config: Config = {
       'slide-in-from-left': 'slideInFromLeft 500ms cubic-bezier(0.37, 0, 0.63, 1) 0s 1 normal forwards',
       'slide-in-from-right': 'slideInFromRight 500ms cubic-bezier(0.37, 0, 0.63, 1) 0s 1 normal forwards',
       'arrow-slide': 'arrow-slide 2s ease-in-out infinite',
-      'aside-slide-in': 'aside 500ms cubic-bezier(0.16, 1, 0.3, 1) 0s 1 normal forwards'
+      'aside-slide-in': 'asideIn 500ms cubic-bezier(0.16, 1, 0.3, 1) 0s 1 normal forwards',
+      'aside-slide-out': 'asideOut 500ms cubic-bezier(0.16, 1, 0.3, 1) 0s 1 normal forwards'
     }
   },
   // eslint-disable-next-line @typescript-eslint/no-require-imports
