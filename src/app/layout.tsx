@@ -3,10 +3,10 @@ import localFont from 'next/font/local'
 import './globals.css'
 // eslint-disable-next-line camelcase
 import { Montserrat, Open_Sans } from 'next/font/google'
-import { TicketsProvider } from '@/context/tickets'
 import { SessionProvider } from '@/context/session'
 import { SeatProvider } from '@/context/selectedSeats'
 import NavBarComponent from './components/NavBarComponent'
+import { AuthProvider } from '@/context/AuthContext'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -36,8 +36,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SessionProvider>
-      <TicketsProvider>
+    <AuthProvider>
+      <SessionProvider>
         <SeatProvider>
           <html lang="en">
             {/* <head>
@@ -50,7 +50,7 @@ export default function RootLayout({
             </body>
           </html>
         </SeatProvider>
-      </TicketsProvider>
-    </SessionProvider>
+      </SessionProvider>
+    </AuthProvider>
   )
 }

@@ -5,6 +5,7 @@ import { SeatContext } from '@/context/selectedSeats'
 import TicketsComponent from './TicketsComponent'
 import SeatSelectionComponent from './SeatSelectionComponent'
 import AsideComponent from './AsideComponent'
+import { TicketsProvider } from '@/context/tickets'
 
 interface TicketsModalProps {
   isOpen: boolean;
@@ -35,25 +36,27 @@ const ModalComponent = ({ isOpen, handleModal, movie }: TicketsModalProps) => {
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={handleModal}>
-      <AsideComponent movie={movie} />
-      <DialogOverlay />
+    <TicketsProvider>
+      <Dialog open={isOpen} onOpenChange={handleModal} modal={true}>
+        <AsideComponent movie={movie} />
+        <DialogOverlay />
 
-      {/* Primer modal */}
-      {!isSeatSelectionOpen && (
-        <TicketsComponent
-          action={action}
-          handleContinue={handleContinue}
-          movie={movie} />
-      )}
+        {/* Primer modal */}
+        {!isSeatSelectionOpen && (
+          <TicketsComponent
+            action={action}
+            handleContinue={handleContinue}
+            movie={movie} />
+        )}
 
-      {/* Segundo modal */}
-      {isSeatSelectionOpen && (
-        <SeatSelectionComponent
-          action={action}
-          handleReturn={handleReturn} />
-      )}
-    </Dialog >
+        {/* Segundo modal */}
+        {isSeatSelectionOpen && (
+          <SeatSelectionComponent
+            action={action}
+            handleReturn={handleReturn} />
+        )}
+      </Dialog >
+    </TicketsProvider>
   )
 }
 
