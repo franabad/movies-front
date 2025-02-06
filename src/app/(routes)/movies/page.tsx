@@ -1,20 +1,16 @@
+'use client'
+
 import SessionsListComponent from '@/app/(routes)/movies/components/SessionsListComponent'
 import DateDropdownComponent from './components/DateDropdownComponent'
+import { useState } from 'react'
 
-async function fetchMovies() {
-  const data = await fetch('http://localhost:3000/api/movies')
-  const movies = await data.json()
-
-  return movies
-}
-
-export default async function Home() {
-  const movies = await fetchMovies()
+export default function Home() {
+  const [selectedDate, setSelectedDate] = useState<string>('')
 
   return (
     <div className="items-center justify-items-center max-h-screen flex flex-col">
-      <DateDropdownComponent />
-      <SessionsListComponent movies={movies} />
+      <DateDropdownComponent setSelectedDate={setSelectedDate} />
+      <SessionsListComponent selectedDate={selectedDate} />
     </div>
 
   )
