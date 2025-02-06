@@ -3,7 +3,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { Temporal } from 'temporal-polyfill'
 
-const DateDropdownComponent = () => {
+interface DateDropdownProps {
+  setSelectedDate: (date: string) => void;
+}
+
+const DateDropdownComponent = ({ setSelectedDate }: DateDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [date, setDate] = useState('')
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -24,8 +28,9 @@ const DateDropdownComponent = () => {
 
   const toggleDropdown = () => setIsOpen(!isOpen)
 
-  const handleOptionClick = (option: string) => {
-    setDate(option)
+  const handleOptionClick = (date: string) => {
+    setDate(date)
+    setSelectedDate(date)
     setIsOpen(!isOpen)
   }
 
@@ -46,7 +51,7 @@ const DateDropdownComponent = () => {
         onClick={toggleDropdown}
         className="cursor-pointer bg-gray-700/50 w-full rounded-md px-2 py-1 shadow-md"
       >
-        {date || 'Select a date'}
+        {date === Temporal.Now.plainDateISO().toString() ? 'Today' : date || 'Today'}
       </div>
       {isOpen && (
         <ul className="cursor-pointer absolute w-full mt-1 bg-black border-[1px] border-gray-300/30 px-1 flex flex-col rounded-md shadow-lg">
@@ -56,7 +61,7 @@ const DateDropdownComponent = () => {
               onClick={() => handleOptionClick(date)}
               className={` border-gray-300/30 hover:bg-gray-200/20 px-2 py-1 rounded-md mt-1 transition-all duration-200 ease-in-out ${index === dates.length - 1 && 'mb-1'}`}
             >
-              {date}
+              {date === Temporal.Now.plainDateISO().toString() ? 'Today' : date}
             </li>
           ))}
         </ul>
