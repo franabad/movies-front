@@ -10,8 +10,8 @@ import { SeatContext } from '@/context/selectedSeats'
 
 interface MovieRowComponentProps {
   movie: Movie
-  sessions: Session[],
-  lastMovieId: number
+  sessions: Session[]
+  lastMovieId: string | null
 }
 
 const MovieRowComponent = ({ movie, sessions, lastMovieId }: MovieRowComponentProps) => {
