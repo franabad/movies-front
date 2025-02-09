@@ -45,8 +45,6 @@ export default function SessionsListComponent({ selectedDate }: SessionsListComp
 
   const lastMovieId = movies.length > 0 ? movies[movies.length - 1].id : null
 
-  console.log(sessions)
-
   return (
     <section className="items-center justify-center flex flex-col gap-y-5 w-full mt-8">
       {isLoading

@@ -24,8 +24,6 @@ const LoginFormComponent = () => {
       const data = await response.json()
 
       return data
-    } else {
-      console.log('Login failed')
     }
   }
 

@@ -1,15 +1,13 @@
 'use client'
 
-import { SessionContext } from '@/context/session'
+// import { SessionContext } from '@/context/session'
 import { TicketsContext } from '@/context/tickets'
 import { useContext } from 'react'
 
 const StoreComponent = () => {
   const { total } = useContext(TicketsContext)
 
-  const { selectedSession } = useContext(SessionContext)
-
-  console.log(selectedSession)
+  // const { selectedSession } = useContext(SessionContext)
 
   return (
     <div className="font-opensans items-center justify-items-center max-h-screen flex flex-col">
