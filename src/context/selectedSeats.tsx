@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useState } from 'react'
-import { Seat } from '@/app/types/seat'
+import { Seat } from '@/types/seat'
 
 interface SeatContext {
   selectedSeats: Seat[]

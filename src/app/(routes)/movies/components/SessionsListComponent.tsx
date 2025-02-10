@@ -1,51 +1,39 @@
+'use client'
+
 /* eslint-disable indent */
-import { Session } from '@/app/types/session'
+import { Session } from '@/types/session'
 import MovieRowComponent from './MovieRowComponent'
-import { Movie } from '@/app/types/movie'
+import { Movie } from '@/types/movie'
 import { useEffect, useState } from 'react'
 import { Temporal } from 'temporal-polyfill'
+import { getMovies, getSessions } from '@/services'
+import { useDate } from '@/context/SelectedDate'
 
-interface SessionsListComponentProps {
-  selectedDate: string
-}
-
-export default function SessionsListComponent({ selectedDate }: SessionsListComponentProps) {
+export default function SessionsListComponent() {
   const [movies, setMovies] = useState<Movie[]>([])
-  const [sessions, setSessionsByMovie] = useState<Session[]>([])
+  const [sessions, setSessions] = useState<Session[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const { selectedDate } = useDate()
 
-  selectedDate = (selectedDate || Temporal.Now.plainDateISO().toString()).split('-').join('')
+  const date = (selectedDate || Temporal.Now.plainDateISO().toString()).split('-').join('')
 
   useEffect(() => {
-    const fetchMoviesAndSessions = async () => {
+    (async () => {
       setIsLoading(true)
-      try {
-        const moviesData = await fetch('http://localhost:3000/api/movies')
-        const movies = await moviesData.json()
+      const movies: Movie[] = await getMovies()
+      setMovies(movies)
 
-        setMovies(movies)
+      const sessions: Session[] = await getSessions(date)
 
-        const sessionsData = await fetch(`http://localhost:3000/api/sessions?date=${selectedDate}`)
-        const sessions: Session[] = await sessionsData.json()
-
-        if (sessionsData.status === 404) {
-          setSessionsByMovie([])
-        } else {
-          setSessionsByMovie(sessions)
-        }
-      } catch (error) {
-        console.error('Error fetching movies and sessions: ', error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    fetchMoviesAndSessions()
-  }, [selectedDate])
+      setSessions(sessions)
+    })()
+    setIsLoading(false)
+  }, [date])
 
   const lastMovieId = movies.length > 0 ? movies[movies.length - 1].id : null
 
   return (
+
     <section className="items-center justify-center flex flex-col gap-y-5 w-full mt-8">
       {isLoading
         ? (
@@ -60,7 +48,7 @@ export default function SessionsListComponent({ selectedDate }: SessionsListComp
               ))
           )
           : (
-            <p>No movies available for this date</p>
+            <p>No session found for this date</p>
           )}
     </section>
   )

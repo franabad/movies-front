@@ -1,16 +1,16 @@
 'use client'
 
+import { useDate } from '@/context/SelectedDate'
 import { useEffect, useRef, useState } from 'react'
 import { Temporal } from 'temporal-polyfill'
 
-interface DateDropdownProps {
-  setSelectedDate: (date: string) => void;
-}
-
-const DateDropdownComponent = ({ setSelectedDate }: DateDropdownProps) => {
+const DateDropdownComponent = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [date, setDate] = useState(Temporal.Now.plainDateISO().toLocaleString('en-US', { weekday: 'short', day: '2-digit', month: 'short' }))
+
   const dropdownRef = useRef<HTMLDivElement>(null)
+
+  const { setSelectedDate } = useDate()
 
   const generateDates = () => {
     const dates = []

@@ -1,9 +1,9 @@
-import { Price } from '@/app/types/prices'
+import { Price } from '@/types/prices'
 import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { TicketsContext } from '@/context/tickets'
 import { TicketMinus, TicketPlus } from 'lucide-react'
 import AnimatedButtonComponent from './AnimatedButtonComponent'
-import { Movie } from '@/app/types/movie'
+import { Movie } from '@/types/movie'
 import React, { useContext } from 'react'
 
 interface TicketsComponentProps {

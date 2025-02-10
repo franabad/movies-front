@@ -1,5 +1,6 @@
 'use client'
 
+import { checkAuth } from '@/services'
 import { createContext, useContext, useEffect, useState } from 'react'
 
 interface AuthContextProps {
@@ -16,26 +17,10 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const response = await fetch('http://localhost:3000/api/auth/check', {
-          method: 'GET',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        })
-
-        if (response.status === 200) {
-          setIsAuthenticated(true)
-        } else {
-          setIsAuthenticated(false)
-        }
-      } catch (error) {
-        console.error('Error checking auth' + error)
-      }
-    }
-    checkAuth()
+    (async () => {
+      const authStatus = await checkAuth()
+      setIsAuthenticated(authStatus)
+    })()
   }, [])
 
   return (

@@ -1,6 +1,6 @@
 'use client'
 
-import { Price } from '@/app/types/prices'
+import { Price } from '@/types/prices'
 // import { TicketsContextType } from '@/app/types/ticketsContext'
 import { createContext, useEffect, useState } from 'react'
 

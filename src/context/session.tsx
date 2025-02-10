@@ -1,6 +1,6 @@
 'use client'
 
-import { Session } from '@/app/types/session'
+import { Session } from '@/types/session'
 import { createContext, useState } from 'react'
 
 interface SessionContext {

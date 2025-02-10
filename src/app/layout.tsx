@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import localFont from 'next/font/local'
 import './globals.css'
 // eslint-disable-next-line camelcase
 import { Montserrat, Open_Sans } from 'next/font/google'
@@ -7,15 +6,6 @@ import { SessionProvider } from '@/context/session'
 import { SeatProvider } from '@/context/selectedSeats'
 import NavBarComponent from './components/NavBarComponent'
 import { AuthProvider } from '@/context/AuthContext'
-
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans'
-})
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono'
-})
 
 const montserrat = Montserrat({
   variable: '--font-montserrat'
@@ -44,7 +34,7 @@ export default function RootLayout({
           <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
         </head> */}
-            <body className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} ${openSans.variable} dark font-opensans`}>
+            <body className={`${montserrat.variable} ${openSans.variable} dark font-opensans`}>
               <NavBarComponent />
               {children}
             </body>

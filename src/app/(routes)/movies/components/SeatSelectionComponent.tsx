@@ -1,4 +1,4 @@
-import { Seat } from '@/app/types/seat'
+import { Seat } from '@/types/seat'
 import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { SeatContext } from '@/context/selectedSeats'
 import { SessionContext } from '@/context/session'

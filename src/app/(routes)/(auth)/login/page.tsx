@@ -1,4 +1,4 @@
-import LoginFormComponent from './componentes/LoginFormComponent'
+import { LoginFormComponent } from './componentes/LoginFormComponent'
 
 export default async function Home() {
   return (

@@ -1,4 +1,4 @@
-import { Movie } from '@/app/types/movie'
+import { Movie } from '@/types/movie'
 import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { SessionContext } from '@/context/session'
 import { TicketsContext } from '@/context/tickets'

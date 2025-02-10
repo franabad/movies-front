@@ -1,7 +1,7 @@
 'use client'
 
-import { Movie } from '@/app/types/movie'
-import { Session } from '@/app/types/session'
+import { Movie } from '@/types/movie'
+import { Session } from '@/types/session'
 import { useContext, useState } from 'react'
 import ModalComponent from './ModalComponent'
 import { TicketsContext } from '@/context/tickets'

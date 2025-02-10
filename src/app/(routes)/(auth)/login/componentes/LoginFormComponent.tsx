@@ -1,30 +1,19 @@
 'use client'
 
 import { useAuth } from '@/context/AuthContext'
+import { getLogin } from '@/services'
+
 import { useFormStatus } from 'react-dom'
 
-const LoginFormComponent = () => {
+export const LoginFormComponent = () => {
   const { isAuthenticated } = useAuth()
   const { pending } = useFormStatus()
 
-  const handleSubmit = async (formData: FormData) => {
-    const username = formData.get('username')
-    const password = formData.get('password')
+  const handleSubmit = (formData: FormData) => {
+    const username = formData.get('username') as string | null
+    const password = formData.get('password') as string | null
 
-    const response = await fetch('http://localhost:3000/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      credentials: 'include',
-      body: JSON.stringify({ username, password })
-    })
-
-    if (response.status === 200) {
-      const data = await response.json()
-
-      return data
-    }
+    getLogin({ username, password })
   }
 
   return (
@@ -44,5 +33,3 @@ const LoginFormComponent = () => {
     </form>
   )
 }
-
-export default LoginFormComponent

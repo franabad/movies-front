@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Movie } from '@/app/types/movie'
+import { Movie } from '@/types/movie'
 import { Dialog, DialogOverlay } from '@/components/ui/dialog'
 import { SeatContext } from '@/context/selectedSeats'
 import TicketsComponent from './TicketsComponent'
