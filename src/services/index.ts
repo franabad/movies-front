@@ -1,25 +1,30 @@
-import { API_URL } from '@/config'
+import { NEXT_PUBLIC_API_URL as API_URL } from '@/config'
 import { Movie } from '@/types/movie'
+import { Session } from '@/types/session'
 
 type LoginData = { username: string | null, password: string | null }
 
-export const getLogin = ({ username, password }: LoginData) => {
-  fetch(`${API_URL}/auth/login`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    credentials: 'include',
-    body: JSON.stringify({ username, password })
-  })
-    .then(response => {
-      if (response.status === 200) {
-        return response.json()
-      }
+export const getLogin = async ({ username, password }: LoginData) => {
+  try {
+    const response = await fetch(`${API_URL}/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include',
+      body: JSON.stringify({ username, password })
     })
-    .catch(error => {
-      console.error(error)
-    })
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.statusText}`)
+    }
+
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.error('Error during login:', error)
+    throw error
+  }
 }
 
 export const checkAuth = async () => {
@@ -43,7 +48,6 @@ export const checkAuth = async () => {
   }
 }
 
-// Función para obtener las películas de la API
 export const getMovies = async (): Promise<Movie[]> => {
   try {
     const response = await fetch(`${API_URL}/movies`) // Cambia la URL a tu API real
@@ -54,22 +58,24 @@ export const getMovies = async (): Promise<Movie[]> => {
   }
 }
 
-export const getSessions = async (date: string) => {
-  const url = new URL(`${API_URL}/sessions`)
+export const getSessions = async (date: string): Promise<Session[]> => {
+  if (!API_URL) throw new Error('API_URL is not defined')
 
-  if (date) url.searchParams.append('date', date)
+  try {
+    const url = new URL(`${API_URL}/sessions`)
 
-  return fetch(url)
-    .then(response => {
-      if (response.status === 200) {
-        return response.json()
-      } else if (response.status === 404) {
-        return []
-      } else {
-        throw new Error('Error fetching sessions')
-      }
-    })
-    .catch(error => {
-      console.error(error)
-    })
+    if (date) url.searchParams.append('date', date)
+
+    const response = await fetch(url)
+
+    if (response.status === 200) {
+      return response.json()
+    } else if (response.status === 404) {
+      return []
+    } else {
+      throw new Error('Error fetching sessions')
+    }
+  } catch {
+    throw new Error('Error fetching sessions')
+  }
 }
