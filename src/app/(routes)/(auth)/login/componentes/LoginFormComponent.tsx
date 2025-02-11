@@ -9,11 +9,15 @@ export const LoginFormComponent = () => {
   const { isAuthenticated } = useAuth()
   const { pending } = useFormStatus()
 
-  const handleSubmit = (formData: FormData) => {
+  const handleSubmit = async (formData: FormData) => {
     const username = formData.get('username') as string | null
     const password = formData.get('password') as string | null
 
-    getLogin({ username, password })
+    try {
+      await getLogin({ username, password })
+    } catch (error) {
+      console.error('Error during login:', error)
+    }
   }
 
   return (

@@ -4,52 +4,43 @@
 import { Session } from '@/types/session'
 import MovieRowComponent from './MovieRowComponent'
 import { Movie } from '@/types/movie'
-import { useEffect, useState } from 'react'
-import { Temporal } from 'temporal-polyfill'
-import { getMovies, getSessions } from '@/services'
 import { useDate } from '@/context/SelectedDate'
+import useSWR from 'swr'
+import { Temporal } from 'temporal-polyfill'
+import { NEXT_PUBLIC_API_URL as API_URL } from '@/config'
+// import { getSessions } from '@/services'
 
-export default function SessionsListComponent() {
-  const [movies, setMovies] = useState<Movie[]>([])
-  const [sessions, setSessions] = useState<Session[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+export const SessionsListComponent = ({ movies }: { movies: Movie[] }) => {
+  const fetcher = (url: string) => fetch(url).then((res) => res.json())
   const { selectedDate } = useDate()
 
   const date = (selectedDate || Temporal.Now.plainDateISO().toString()).split('-').join('')
 
-  useEffect(() => {
-    (async () => {
-      setIsLoading(true)
-      const movies: Movie[] = await getMovies()
-      setMovies(movies)
+  const { data: sessions, error } = useSWR<Session[]>(date ? `${API_URL}/sessions?date=${date}` : null, fetcher, {
+    revalidateOnFocus: false, // No revalidar al enfocar la ventana
+    revalidateOnReconnect: false, // No revalidar al reconectar la red
+    dedupingInterval: 10000 // Aumenta el intervalo de deduplicación (por defecto es 2000ms)
+  })
 
-      const sessions: Session[] = await getSessions(date)
-
-      setSessions(sessions)
-    })()
-    setIsLoading(false)
-  }, [date])
+  if (error) return <p>Error al obtener las sesiones</p>
+  if (!sessions) return <p>Loading sessions...</p>
 
   const lastMovieId = movies.length > 0 ? movies[movies.length - 1].id : null
 
   return (
 
     <section className="items-center justify-center flex flex-col gap-y-5 w-full mt-8">
-      {isLoading
+      {sessions && sessions.length > 0
         ? (
-          <p></p>
+          movies
+            .filter((movie: Movie) => sessions.some((session: Session) => session.movieId === movie.id))
+            .map((movie: Movie) => (
+              <MovieRowComponent key={movie.id} movie={movie} sessions={sessions.filter((session: Session) => session.movieId === movie.id)} lastMovieId={lastMovieId} />
+            ))
         )
-        : sessions && sessions.length > 0
-          ? (
-            movies
-              .filter((movie: Movie) => sessions.some((session: Session) => session.movieId === movie.id))
-              .map((movie: Movie) => (
-                <MovieRowComponent key={movie.id} movie={movie} sessions={sessions.filter((session: Session) => session.movieId === movie.id)} lastMovieId={lastMovieId} />
-              ))
-          )
-          : (
-            <p>No session found for this date</p>
-          )}
+        : (
+          <p>No session found for this date</p>
+        )}
     </section>
   )
 }
